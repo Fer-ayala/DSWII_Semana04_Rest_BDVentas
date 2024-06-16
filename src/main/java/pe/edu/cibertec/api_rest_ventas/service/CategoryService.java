@@ -6,6 +6,7 @@ import pe.edu.cibertec.api_rest_ventas.model.bd.Category;
 import pe.edu.cibertec.api_rest_ventas.repository.CategoryRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -15,16 +16,20 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public List<Category> listarCategorias() {
-        return List.of();
+        return categoryRepository.findAll();
     }
 
     @Override
     public Category guardarCategoria(Category category) {
-        return null;
+        return categoryRepository.save(category);
     }
 
     @Override
-    public Category obtenerCategoriaxId(Integer id) {
-        return null;
+    public Optional<Category> obtenerCategoriaxId(Integer id) {
+        Optional<Category> category = categoryRepository.findById(id);
+        if(category.isEmpty()){
+            return Optional.empty();
+        }
+        return category;
     }
 }
